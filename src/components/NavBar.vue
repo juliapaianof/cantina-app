@@ -1,6 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 
+defineProps({
+  totalItens: { type: Number, default: 0 },
+})
+
+
 const escuro = ref(false)
 
 function alternarTema() {
@@ -19,13 +24,22 @@ function alternarTema() {
         <div class="flex items-center gap-2 sm:gap-4">
           <a href="#" class="rounded-lg bg-escola-700 px-3 py-2 font-semibold">Cardápio</a>
           <a href="#" class="rounded-lg px-3 py-2 transition-colors hover:bg-escola-700">Meus Pedidos</a>
-          <a href="#" class="rounded-lg px-3 py-2 transition-colors hover:bg-escola-700">🛒 Carrinho</a>
+          <a href="#" class="relative rounded-lg px-3 py-2 transition-colors hover:bg-escola-700">
+            🛒 Carrinho
+          <span v-if="totalItens > 0" class="absolute -top-1 -right-1 flex h-6 
+            w-6 items-center justify-center rounded-full
+            bg-yellow-400 text-xs font-bold
+            text-gray-900"
+          >
+            {{ totalItens }}
+          </span>
+          </a>
           <button
             @click="alternarTema"
             class="rounded-lg px-2 py-2 transition-colors"
-            title="Modo escuro"
+            :title="escuro ? 'Modo claro' : 'Modo escuro'"
           >
-            {{ escuro ? '☀' : '🌙' }}
+            {{ escuro ? '🌞' : '🌙' }}
           </button>
         </div>
       </nav>
